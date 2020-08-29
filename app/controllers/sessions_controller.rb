@@ -1,16 +1,16 @@
-class SessionsController < ApplicationController 
+class SessionsController < ApplicationController
 
-  def new 
+  def new
 
   end
 
-  def create 
+  def create
     @user = User.find_by(name: params[:user][:name])
-    if @user == nil 
+    if @user == nil
       redirect_to 'new'
-    else 
+    else
       return head(:forbidden) unless @user.authenticate(params[:user][:password])
-      session[:user_id] = @user.id 
+      session[:user_id] = @user.id
       redirect_to homepage_path(@user)
     end
   end
